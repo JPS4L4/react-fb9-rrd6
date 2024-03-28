@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserProvider";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  if (!user) {
-    <Navigate to="/login" />;
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
+
   return children;
 };
 

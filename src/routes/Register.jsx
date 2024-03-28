@@ -2,27 +2,30 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 import { useNavigate } from "react-router";
 
-const Login = () => {
-  const { loginUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+
+  const { registerUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(email, password);
-      console.log("usuario ingresado");
+      await registerUser(email, password);
+      console.log("usuario creado");
       navigate("/")
     } catch (error) {
       console.log(error.code);
-      alert("Error al logear");
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already in use");
+      }
     }
   };
+
   return (
     <>
-      <h1>Login</h1>
+      <h1>Registrarse</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -36,9 +39,10 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </>
   );
 };
-export default Login;
+
+export default Register;
