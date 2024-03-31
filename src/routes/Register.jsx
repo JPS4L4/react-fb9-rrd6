@@ -5,6 +5,8 @@ import { UserContext } from "../context/UserProvider";
 import { fbErrors } from "../utils/fbErrors";
 import FormError from "../components/FormError";
 import FormInput from "../components/FormInput";
+import Title from "../components/Title";
+import Button from "../components/Button";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,13 +31,14 @@ const Register = () => {
       await registerUser(email, password);
       navigate("/");
     } catch (error) {
-      setError("firebase", { message: fbErrors(error.code) });
+      const { code, message } = fbErrors(error.code);
+      setError(code, { message });
     }
   };
 
   return (
     <>
-      <h1>Registrarse</h1>
+      <Title text={"Registro de Usuario"} />
       <FormError error={errors.firebase} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
@@ -51,6 +54,8 @@ const Register = () => {
               message: "Formato de email incorrecto",
             },
           })}
+          label="Ingresa tu Correo"
+          error={errors.email}
         >
           <FormError error={errors.email} />
         </FormInput>
@@ -68,6 +73,8 @@ const Register = () => {
               },
             },
           })}
+          label="Ingresa tu contraseña"
+          error={errors.password}
         >
           <FormError error={errors.password} />
         </FormInput>
@@ -80,10 +87,12 @@ const Register = () => {
                 v === getValues("password") || "No coinciden las contraseñas",
             },
           })}
+          label="Repite tu contraseña"
+          error={errors.repassword}
         >
           <FormError error={errors.repassword} />
         </FormInput>
-        <button type="submit">Registrarse</button>
+        <Button text="Registrarse" type="submit" />
       </form>
     </>
   );

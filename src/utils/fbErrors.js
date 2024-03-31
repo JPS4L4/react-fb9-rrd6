@@ -1,21 +1,39 @@
 export const fbErrors = (code) => {
   switch (code) {
     case "auth/email-already-in-use":
-      return "Usuario ya registrado";
+      return {
+        code: "email",
+        message: "Usuario ya registrado",
+      };
 
     case "auth/invalid-email":
-      return "Email invalido";
+      return {
+        code: "email",
+        message: "Email invalido",
+      };
 
     case "auth/missing-email":
-      return "Email es requerido";
+      return {
+        code: "email",
+        message: "Email es requerido",
+      };
 
     case "auth/weak-password":
-      return "Contraseña debil";
+      return {
+        code: "password",
+        message: "Contraseña débil",
+      };
 
     case "auth/invalid-credential":
-      return "Correo o Contraseña incorrecto";
+      return {
+        code: "password",
+        message: "Email o Contraseña equivocado",
+      };
 
     default:
-      return `Error no registrado: ${code}`;
+      return {
+        code: "Email",
+        message: `Error no identificado: ${code}`,
+      };
   }
 };
