@@ -2,15 +2,13 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../context/UserProvider";
-import { formValidate } from "../utils/formValidate";
 import { fbErrors } from "../utils/fbErrors";
 import FormError from "../components/FormError";
+import FormInput from "../components/FormInput";
 
 const Register = () => {
   const navigate = useNavigate();
   const { registerUser } = useContext(UserContext);
-  const { required, patternEmail, minLength, validateTrim, validateEquals } =
-    formValidate;
 
   const {
     register,
@@ -40,25 +38,40 @@ const Register = () => {
       <h1>Registrarse</h1>
       <FormError error={errors.firebase} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
+        <FormInput
           type="email"
           placeholder="Ingrese email"
           {...register("email", {
-            required,
-            pattern: patternEmail,
+            required: {
+              value: true,
+              message: "Campo Obligatorio",
+            },
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Formato de email incorrecto",
+            },
           })}
-        />
-        <FormError error={errors.email} />
-        <input
+        >
+          <FormError error={errors.email} />
+        </FormInput>
+        <FormInput
           type="password"
           placeholder="Ingrese contraseña"
           {...register("password", {
-            minLength,
-            validate: validateTrim,
+            minLength: { value: 6, message: "Mínimo 6 caracteres" },
+            validate: {
+              trim: (v) => {
+                if (!v.trim()) {
+                  return "Escribe algo";
+                }
+                return true;
+              },
+            },
           })}
-        />
-        <FormError error={errors.password} />
-        <input
+        >
+          <FormError error={errors.password} />
+        </FormInput>
+        <FormInput
           type="password"
           placeholder="Repita la contraseña"
           {...register("repassword", {
@@ -67,8 +80,9 @@ const Register = () => {
                 v === getValues("password") || "No coinciden las contraseñas",
             },
           })}
-        />
-        <FormError error={errors.repassword} />
+        >
+          <FormError error={errors.repassword} />
+        </FormInput>
         <button type="submit">Registrarse</button>
       </form>
     </>
