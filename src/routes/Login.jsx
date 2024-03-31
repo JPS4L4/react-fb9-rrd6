@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { fbErrors } from "../utils/fbErrors";
 import FormError from "../components/FormError";
 import FormInput from "../components/FormInput";
+import Title from "../components/Title";
+import Button from "../components/Button";
 
 const Login = () => {
   const { loginUser } = useContext(UserContext);
@@ -28,13 +30,14 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       console.log(error.code);
-      setError("firebase", { message: fbErrors(error.code) });
+      const { code, message } = fbErrors(error.code);
+      setError(code, { message });
     }
   };
 
   return (
     <>
-      <h1>Login</h1>
+      <Title text={"Ingreso de Usuario"} />
       <FormError error={errors.firebase} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
@@ -50,6 +53,8 @@ const Login = () => {
               message: "Formato de email incorrecto",
             },
           })}
+          label="Ingresa tu correo"
+          error={errors.email}
         >
           <FormError error={errors.email} />
         </FormInput>
@@ -67,10 +72,12 @@ const Login = () => {
               },
             },
           })}
+          label="Ingresa tu contraseña"
+          error={errors.password}
         >
           <FormError error={errors.password} />
         </FormInput>
-        <button type="submit">Login</button>
+        <Button text="Ingresar" type="submit" />
       </form>
     </>
   );
