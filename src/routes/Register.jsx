@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../context/UserProvider";
@@ -7,10 +7,12 @@ import FormError from "../components/FormError";
 import FormInput from "../components/FormInput";
 import Title from "../components/Title";
 import Button from "../components/Button";
+import ButtonLoading from "../components/ButtonLoading";
 
 const Register = () => {
   const navigate = useNavigate();
   const { registerUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -28,11 +30,14 @@ const Register = () => {
 
   const onSubmit = async ({ email, password }) => {
     try {
+      setLoading(true);
       await registerUser(email, password);
       navigate("/");
     } catch (error) {
       const { code, message } = fbErrors(error.code);
       setError(code, { message });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +97,15 @@ const Register = () => {
         >
           <FormError error={errors.repassword} />
         </FormInput>
-        <Button text="Registrarse" type="submit" />
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <ButtonLoading />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <Button text="Registrar" type="submit" />
+          </div>
+        )}
       </form>
     </>
   );
