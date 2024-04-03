@@ -82,15 +82,14 @@ const Login = () => {
         >
           <FormError error={errors.password} />
         </FormInput>
-        {loading ? (
-          <div className="flex items-center justify-center">
-            <ButtonLoading />
-          </div>
-        ) : (
-          <div className="flex items-center justify-center">
-            <Button text="Ingresar" type="submit" />
-          </div>
-        )}
+        <div className="flex items-center justify-center">
+          <Button
+            text="Ingresar"
+            type="submit"
+            color="blue"
+            loading={loading}
+          />
+        </div>
       </form>
     </>
   );

@@ -97,15 +97,15 @@ const Register = () => {
         >
           <FormError error={errors.repassword} />
         </FormInput>
-        {loading ? (
-          <div className="flex items-center justify-center">
-            <ButtonLoading />
-          </div>
-        ) : (
-          <div className="flex items-center justify-center">
-            <Button text="Registrar" type="submit" />
-          </div>
-        )}
+
+        <div className="flex items-center justify-center">
+          <Button
+            text="Registrar"
+            type="submit"
+            color="green"
+            loading={loading}
+          />
+        </div>
       </form>
     </>
   );
