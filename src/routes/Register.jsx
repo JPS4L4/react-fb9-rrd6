@@ -20,13 +20,7 @@ const Register = () => {
     formState: { errors },
     getValues,
     setError,
-  } = useForm({
-    defaultValues: {
-      email: "test@test.com",
-      password: "123123",
-      repassword: "123123",
-    },
-  });
+  } = useForm();
 
   const onSubmit = async ({ email, password }) => {
     try {
@@ -102,7 +96,7 @@ const Register = () => {
           <Button
             text="Registrar"
             type="submit"
-            color="green"
+            style="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             loading={loading}
           />
         </div>
