@@ -9,6 +9,7 @@ import {
   setDoc,
   updateDoc,
   where,
+  getDoc,
 } from "firebase/firestore/lite";
 import { nanoid } from "nanoid";
 
@@ -87,5 +88,25 @@ export const usefirestore = () => {
     }
   };
 
-  return { data, error, loading, getData, addData, deleteData, updateData };
+  const searchData = async (nanoid) => {
+    try {
+      const docRef = doc(db, "urls", nanoid);
+      const docSnap = await getDoc(docRef);
+
+      return docSnap;
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return {
+    data,
+    error,
+    loading,
+    getData,
+    addData,
+    deleteData,
+    updateData,
+    searchData,
+  };
 };

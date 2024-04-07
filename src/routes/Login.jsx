@@ -7,9 +7,10 @@ import FormError from "../components/FormError";
 import FormInput from "../components/FormInput";
 import Title from "../components/Title";
 import Button from "../components/Button";
-import ButtonLoading from "../components/ButtonLoading";
 
 const Login = () => {
+  document.title = "Ingreso";
+
   const { loginUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

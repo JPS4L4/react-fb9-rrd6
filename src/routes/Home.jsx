@@ -13,6 +13,8 @@ const Home = () => {
   const [newOriginID, setNewOriginID] = useState();
   const [copy, setCopy] = useState({});
 
+  document.title = "Inicio";
+
   const {
     register,
     handleSubmit,
@@ -51,9 +53,18 @@ const Home = () => {
     setNewOriginID(item.nanoid);
   };
 
+  const handleCancel = () => {
+    try {
+      setNewOriginID("");
+      resetField("url");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCopy = async (item) => {
     await navigator.clipboard.writeText(window.location.href + item.nanoid);
-    setCopy((prev) => ({ [item.nanoid]: true }));
+    setCopy({ [item.nanoid]: true });
   };
 
   const pathURL = window.location.href;
@@ -63,8 +74,6 @@ const Home = () => {
 
   return (
     <div>
-      <Title text="Home" />
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           type="text"
@@ -85,21 +94,31 @@ const Home = () => {
         >
           <FormError error={errors.url} />
         </FormInput>
-        {newOriginID ? (
-          <Button
-            text="Edit URL"
-            type="submit"
-            style="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-            loading={loading.updateData}
-          />
-        ) : (
-          <Button
-            text="Add URL"
-            type="submit"
-            style="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            loading={loading.addData}
-          />
-        )}
+        <div className="flex justify-center items-center">
+          {newOriginID ? (
+            <div>
+              <Button
+                text="Edit URL"
+                type="submit"
+                style="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+                loading={loading.updateData}
+              />
+              <Button
+                text="x"
+                type="button"
+                style="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                onclick={() => handleCancel()}
+              />
+            </div>
+          ) : (
+            <Button
+              text="Add URL"
+              type="submit"
+              style="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              loading={loading.addData}
+            />
+          )}
+        </div>
       </form>
 
       {data.map((item) => (

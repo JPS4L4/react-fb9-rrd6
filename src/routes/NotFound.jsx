@@ -1,6 +1,9 @@
 import Title from "../components/Title";
 
 const NotFound = () => {
+
+  document.title = "Página no encontrada";
+
   return (
     <>
       <div>
