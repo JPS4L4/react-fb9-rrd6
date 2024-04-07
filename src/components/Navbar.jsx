@@ -26,6 +26,11 @@ const Navbar = () => {
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link to="/" className="flex items-center">
+          <img
+            className="w-20 h-20"
+            src="https://png.pngtree.com/png-clipart/20230307/original/pngtree-realistic-web-url-icon-background-png-image_8975518.png"
+            alt="logo pagina"
+          />
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             URL's Short App
           </span>
@@ -35,6 +40,10 @@ const Navbar = () => {
             <>
               <NavLink to="/" className={btnBlue}>
                 Inicio
+              </NavLink>
+
+              <NavLink to="/perfil" className={btnGreen}>
+                Perfil
               </NavLink>
 
               <button onClick={handleClickLogOut} className={btnRed}>
