@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^10.9.0",
+    "firebase": "^10.10.0",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.6",
     "nanoid": "^5.0.6",

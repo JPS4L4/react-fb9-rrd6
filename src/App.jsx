@@ -4,6 +4,7 @@ import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Perfil from "./routes/Perfil";
 import NotFound from "./routes/NotFound";
+import NewPassword from "./routes/NewPassword";
 
 import LayoutContainerForm from "./components/layouts/LayoutContainerForm";
 import LayoutRequireAuth from "./components/layouts/LayoutRequireAuth";
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/" element={<LayoutContainerForm />}>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/newpassword" element={<NewPassword />}></Route>
         </Route>
 
         <Route path="/:nanoid" element={<LayoutRedirect />}>

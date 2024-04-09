@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 const FormInput = forwardRef(
   (
-    { type, placeholder, onChange, onBlur, name, label, error, children },
+    { type, placeholder, onChange, onBlur, name, label, disabled, value, error, children },
     ref
   ) => {
     const errorLabel = error
@@ -25,6 +25,8 @@ const FormInput = forwardRef(
           onChange={onChange}
           onBlur={onBlur}
           name={name}
+          disabled={disabled}
+          value={value}
         />
         {children}
       </div>
