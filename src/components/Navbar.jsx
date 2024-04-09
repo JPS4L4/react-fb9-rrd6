@@ -32,7 +32,7 @@ const Navbar = () => {
             alt="logo pagina"
           />
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-            URL's Short App
+            Acortador URL's
           </span>
         </Link>
         <div className="flex md:order-2">
@@ -47,17 +47,17 @@ const Navbar = () => {
               </NavLink>
 
               <button onClick={handleClickLogOut} className={btnRed}>
-                Log Out
+                Cerrar Sesión
               </button>
             </>
           ) : (
             <>
               <NavLink to="/login" className={btnBlue}>
-                Login
+                Ingresar
               </NavLink>
 
               <NavLink to="/register" className={btnGreen}>
-                Register
+                Registrarse
               </NavLink>
             </>
           )}
